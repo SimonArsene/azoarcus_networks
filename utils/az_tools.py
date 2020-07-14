@@ -237,27 +237,25 @@ def at_least_one_WC_link(nt):
     M = azm.network_matrix(nt, WC_rates)
     return M.sum() > 0
 
-def epi_dict(epi, rates):
-    epi_dict = {}
-    temp = epi[:]
-    def compute_aux(x):
-        return azm.degree(x["mutation"], x["after"], deg="in", norm=0, rates=rates) + azm.degree(x["mutation"], x["after"], deg="out", norm=0, rates=rates)
-    temp["total_degree"] = temp.apply(compute_aux, axis=1)
-    for name, x in temp.groupby("before"):
-        epi_dict[name] = {y.after:[y.pscore, -1, y.total_degree] for _, y in x.iterrows()}
-    return epi_dict
-
-def sample_graph_for_series(epi, start=1, end=12):
-    temp = epi[:]
+def dir_graph_cumulative_perturbation_analysis(epi, start=1, end=12):
+    """
+    Computes the directed graph of azoarcus networks with at least `start` nodes and at most `end` nodes for cumulative perturbation analysis where an interaction represents the addition of a node to a network.
+    """
     graph = {}
-    for s in range(1, 12):
-        list_nt = list(temp[temp.nt_size_before == s].before.unique())
+    for s in range(start, end):
+        list_nt = list(epi[epi.nt_size_before == s].before.unique())
         for nt in list_nt:
-            graph[nt] = list(temp[temp.before == nt].after.values)
+            graph[nt] = list(epi[epi.before == nt].after.values)
     gr = nx.DiGraph(graph)
     return gr
 
-def compute_series(start, end, epi_dict, gr):
+def cumulative_perturbation_analysis(start, end, epi_dict, gr):
+    """
+    Computes trajectories of cumulative perturbations starting from networks with number of nodes == `start` to networks with number of nodes == `end`.
+    Takes two auxiliary data structures:
+        - `gr`, the directed graph of azoarcus networks computed with `dir_graph_cumulative_perturbation_analysis`
+        - `epi_dict`, a dictionnary storing perturbation score between a source network and all its targets for fast look-up
+    """
     sources = [node for node in gr.nodes() if node.count("1") == start]
     targets = [node for node in gr.nodes() if node.count("1") == end]
 
@@ -265,12 +263,10 @@ def compute_series(start, end, epi_dict, gr):
     for s in sources:
         for t in targets:
             for path in nx.all_simple_paths(gr, s, t):
-                pscores, pscores_th, degree_path = [0], [0], [0]
+                pscores = [0]
                 for i in range(len(path) - 1):
-                    pscores.append(pscores[-1] + epi_dict[path[i]][path[i+1]][0])
-                    pscores_th.append(pscores_th[-1] + epi_dict[path[i]][path[i+1]][1])
-                    degree_path.append(epi_dict[path[i]][path[i+1]][-1])
-                tot.append([path[0], path[-1], pscores[-1], pscores_th[-1], path, pscores, pscores_th, sum(degree_path), degree_path])
-    paths = pd.DataFrame(tot, columns=["start", "end", "cumu_pscore", "cumu_pscore_th", "path", "pscores", "pscores_th", "cumu_degree", "degree_path"])
+                    pscores.append(pscores[-1] + epi_dict[path[i]][path[i+1]])
+                tot.append([path[0], path[-1], pscores[-1], path, pscores])
+    paths = pd.DataFrame(tot, columns=["start", "end", "cumu_pscore", "path", "pscores"])
     
     return paths
