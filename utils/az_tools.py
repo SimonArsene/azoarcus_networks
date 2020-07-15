@@ -5,6 +5,7 @@ import az_model as azm
 
 G = [M+N for M in "ACUG" for N in "ACUG"]
 base_comp = {"A":"U", "U":"A", "C":"G", "G":"C"}
+WC_rates = [1 if g in ["AU", "UA", "GC", "CG"] else 0 for g in G]
 
 #Transform list of genotypes into network string and vice-versa
 def transform(x):
@@ -233,7 +234,6 @@ def at_least_one_WC_link(nt):
     """
     Tests if the network nt has at least a Watson-Crick interaction.
     """
-    WC_rates = [1 if g in ["AU", "UA", "GC", "CG"] else 0 for g in G]
     M = azm.network_matrix(nt, WC_rates)
     return M.sum() > 0
 

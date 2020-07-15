@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="144pt" version="1.1" viewBox="0 0 7.2 144" width="7.2pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 144 
+L 7.2 144 
+L 7.2 0 
+L 0 0 
+z
+" style="fill:#ffffff;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#pc228f51254)" d="M 0.9 126 
+L 0.9 125.575312 
+L 0.9 17.704688 
+L 0.9 17.28 
+L 6.48 17.28 
+L 6.48 17.704688 
+L 6.48 125.575312 
+L 6.48 126 
+z
+" style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
+   </g>
+   <image height="109.309091" id="image0bee5b3db3" transform="scale(1 -1)translate(0 -109.309091)" width="5.890909" x="0.654545" xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAkAAACnCAYAAADDh3aOAAAABHNCSVQICAgIfAhkiAAAAR9JREFUWIXd2NENwyAQg+GjZZXuP1aHSICOwPdgoah9tv7z2RFpaOP7WbX59WvdO031WVtQ9WuNFKmmjAPSMONbTfVRTUggQtJLSCAykoiuep8kXavLOApTSBZmLAIixTzNmKfDEUwrWEgU5gQRhvk80k2imaqFxhmJapGD1Uh0jsc8GSnmic7MZeNyJDAOb/zqk0h7UPUV224SSUTwfyZpvEwEnso8pUgtRsLtQNRi42w76o6M5yI4W3ATT0Hjue5iniyCvyYFu3ug8WfWAp/dz4xAjBNpfxly3pPlFOtuAOl4BOLJ3ua0HYWZSryMBLdrGIGQKAJ7VKi7s9vZ85TKqQbcsdaIjbMIciLwtCiCWJiLjFviIKLtRLT/CK6qH0/SDz9w/U87AAAAAElFTkSuQmCC" y="-17.018182"/>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L -4 0 
+" id="mfca14e6898" style="stroke:#333333;stroke-width:0.8;"/>
+      </defs>
+      <g>
+       <use style="fill:#333333;stroke:#333333;stroke-width:0.8;" x="6.48" xlink:href="#mfca14e6898" y="107.88"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 9.98, 111.458906)" x="9.98" y="111.458906">5</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="fill:#333333;stroke:#333333;stroke-width:0.8;" x="6.48" xlink:href="#mfca14e6898" y="85.23"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 9.98, 88.808906)" x="9.98" y="88.808906">10</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="fill:#333333;stroke:#333333;stroke-width:0.8;" x="6.48" xlink:href="#mfca14e6898" y="62.58"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 9.98, 66.158906)" x="9.98" y="66.158906">15</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="fill:#333333;stroke:#333333;stroke-width:0.8;" x="6.48" xlink:href="#mfca14e6898" y="39.93"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 9.98, 43.508906)" x="9.98" y="43.508906">20</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_5">
+      <g>
+       <use style="fill:#333333;stroke:#333333;stroke-width:0.8;" x="6.48" xlink:href="#mfca14e6898" y="17.28"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 9.98, 20.858906)" x="9.98" y="20.858906">25</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="fill:#333333;font-family:Arial;font-size:10px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 32.259687, 71.64)" x="32.259687" y="71.64">Number of inflexions</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 0.9 126 
+L 0.9 125.575312 
+L 0.9 17.704688 
+L 0.9 17.28 
+L 6.48 17.28 
+L 6.48 17.704688 
+L 6.48 125.575312 
+L 6.48 126 
+z
+" style="fill:none;stroke:#333333;stroke-linejoin:miter;"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc228f51254">
+   <rect height="108.72" width="5.58" x="0.9" y="17.28"/>
+  </clipPath>
+ </defs>
+</svg>

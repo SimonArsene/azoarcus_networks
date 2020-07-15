@@ -1,5 +1,6 @@
 *.csv
 *.pdf
+**/*/*.pyc
 .ipynb_checkpoints/
-figures/*.svg
+utils/archive/*
 figures/*.png
