@@ -1,4 +1,5 @@
 *.csv
+!pick_initial_combinations/*.jcsv
 *.pdf
 *.xlsx
 **/*/*.pyc
