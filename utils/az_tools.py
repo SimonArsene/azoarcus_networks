@@ -270,3 +270,32 @@ def cumulative_perturbation_analysis(start, end, epi_dict, gr):
     paths = pd.DataFrame(tot, columns=["start", "end", "cumu_pscore", "path", "pscores"])
     
     return paths
+
+# Functions to mimic library fusion
+
+def one_fusion(params=None):
+    """
+    Mimic a single library fusion
+    """
+    if params == None:
+        mix = [0, 0.05, 0.40, 0.50, 0.05]
+    else:
+        mix = params[:]
+    for i in range(len(mix)-1):
+        mix[i+1] += mix[i]
+    x = random()
+    p = -1
+    for i in range(len(mix)):
+        if x < mix[-i]:
+            p = len(mix)-i
+    return p
+
+def many_fusions(wells, weights=None, nb_fusion=10000, params=None):
+    """
+    Mimic the whole library fusion
+    """
+    if weights == None:
+        weights = np.array([1./len(wells)]*len(wells))
+    
+    fusion_dist = [one_fusion(params=params) for _ in xrange(nb_fusion)]
+    return [transform(list(chain.from_iterable([np.random.choice(wells, p=weights) for _ in range(p)]))) for p in fusion_dist]
