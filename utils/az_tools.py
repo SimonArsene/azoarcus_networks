@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import networkx as nx
 import az_model as azm
+from random import random
+from itertools import chain
+
 
 G = [M+N for M in "ACUG" for N in "ACUG"]
 base_comp = {"A":"U", "U":"A", "C":"G", "G":"C"}
@@ -97,7 +100,7 @@ def compute_yield(x):
 
 # Perturbation analysis
 
-def perturbation_analysis(node_fraction_data):
+def perturbation_analysis(node_fraction_data, norm=1):
     """
     This function computes the perturbation analysis using node fraction data which can come from the measured node fractions in droplets or from a model (kinetic, eigenvector centrality or in-degree centrality).
     Results of the perturbation analysis is stored in "epi".
@@ -116,7 +119,7 @@ def perturbation_analysis(node_fraction_data):
             mut = what_mut(a, b)
             if mut[0] == "-":
                 mut = mut[1]
-                order, y_before, y_after, pscore = compute_pscore(b, a, node_fraction_data[b], node_fraction_data[a])
+                order, y_before, y_after, pscore = compute_pscore(b, a, node_fraction_data[b], node_fraction_data[a], norm=norm)
                 epi.append([b, a, mut, pscore, b.count("1"), y_before, y_after, order])
             
     epi = pd.DataFrame(epi, columns=["before", "after", "mutation", "pscore", "nt_size_before", "y_before", "y_after", "order_sp"])
@@ -161,17 +164,21 @@ def what_mut(A, B):
         else:
             return "-"
 
-def compute_pscore(before, after, nf_before, nf_after):
+def compute_pscore(before, after, nf_before, nf_after, norm=1):
     # Computes perturbation metrics between networks before and after (which are neighbors hence they differ only by the addition/deletion of a node)
     y_before = {g:nf_before[transform(before).index(g)] for g in transform(before)}
     y_after = {g:nf_after[transform(after).index(g)] for g in transform(after)}
     common = list(set(y_before.keys()).intersection(set(y_after.keys())))
     common = transform(transform(common))
-    y = norm_array(np.array([y_after[c] for c in common]))
-    x = norm_array(np.array([y_before[c] for c in common]))
+    if norm:
+        y = norm_array(np.array([y_after[c] for c in common]))
+        x = norm_array(np.array([y_before[c] for c in common]))
+    else:
+        y = np.array([y_after[c] for c in common])
+        x = np.array([y_before[c] for c in common])
     return [common, x, y, np.mean(np.abs(y-x))]
 
-def postprocess_perturbation_analysis(size, epi, rates):
+def postprocess_perturbation_analysis(size, epi, rates, norm=1):
     """
     Postprocess results from perturbation analysis:
         1. Selects only additions of a node
@@ -193,12 +200,25 @@ def postprocess_perturbation_analysis(size, epi, rates):
         y = x.y_before
         y_ = x.y_after
         if sum(y_) == 0:
-            y_ = np.array([1./n]*n)
+            if norm:
+                y_ = np.array([1./n]*n)
+            else:
+                y_ = np.zeros(n)
         else:
-            y_ = norm_array(y_)
+            if norm:
+                y_ = norm_array(y_)
         sv = y_ - y
         for i in range(n):
-            res.append([x.before.count("1"), x.before, x.after, x.mutation, v[i], d_v_in[i], d_a_out, sigma_G, rates[G.index(x.mutation[0] + v[i][1])], sv[i], 
+            res.append([x.before.count("1"), 
+                        x.before, 
+                        x.after, 
+                        x.mutation, 
+                        v[i], 
+                        d_v_in[i], 
+                        d_a_out, 
+                        sigma_G, 
+                        rates[G.index(x.mutation[0] + v[i][1])], 
+                        sv[i], 
                         (rates[G.index(x.mutation[0] + v[i][1])] - d_a_out*d_v_in[i]/sigma_G)/(sigma_G + d_a_out),
                         sum([azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in va]), 
                         sum([azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in va_star])])
