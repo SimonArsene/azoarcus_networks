@@ -7,3 +7,4 @@
 .ipynb_checkpoints/
 utils/archive/*
 figures/*.png
+dropbox/*

@@ -194,9 +194,11 @@ def postprocess_perturbation_analysis(size, epi, rates, norm=1):
         res = []
         d_a_out = sum([rates[G.index(x.mutation[0] + g[1])] for g in v])
         sigma_G = azm.network_matrix(x.before, rates=rates).sum()
+        sigma_e = sigma_G/rates[G.index(x.mutation[0] + base_comp[x.mutation[0]])]
         d_v_in = [azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in v]
         va = [g for g in transform(x.before) if np.isclose(rates[G.index(x.mutation[0] + g[1])], 0) == False]
         va_star = [g for g in transform(x.before) if g not in va]
+        n = sum([base_comp[g[1]] == x.mutation[0] for g in transform(x.before)])
         y = x.y_before
         y_ = x.y_after
         if sum(y_) == 0:
@@ -216,14 +218,17 @@ def postprocess_perturbation_analysis(size, epi, rates, norm=1):
                         v[i], 
                         d_v_in[i], 
                         d_a_out, 
-                        sigma_G, 
+                        sigma_G,
+                        sigma_e,
                         rates[G.index(x.mutation[0] + v[i][1])], 
                         sv[i], 
                         (rates[G.index(x.mutation[0] + v[i][1])] - d_a_out*d_v_in[i]/sigma_G)/(sigma_G + d_a_out),
                         sum([azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in va]), 
-                        sum([azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in va_star])])
+                        sum([azm.degree(g, x.before, norm=0, deg='in', rates=rates) for g in va_star]),
+                        sum([base_comp[v[i][1]] == g[0] for g in transform(x.before)]),
+                        n])
         df = df + res
-    df = pd.DataFrame(df, columns=["nt_size", "before", "after", "mutation", "node", "deg_in_v", "deg_out_a", "sigma_g", "edge_a_v", "p_v", "p_v_th", "deg_in_va", "deg_in_va_star"])
+    df = pd.DataFrame(df, columns=["nt_size", "before", "after", "mutation", "node", "deg_in_v", "deg_out_a", "sigma_g", "sigma_e", "edge_a_v", "p_v", "p_v_th", "deg_in_va", "deg_in_va_star", "m_v", "n"])
     return df
 
 def collapse_postprocess(temp, rates):
