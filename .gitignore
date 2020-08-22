@@ -1,10 +1,11 @@
 *.csv
-!pick_initial_combinations/*.csv
+!analysis/pick_initial_combinations/*.csv
 *.pdf
 *.xlsx
+*.svg
+*.png
 **/*/*.pyc
 **/*/.ipynb_checkpoints/
 .ipynb_checkpoints/
 utils/archive/*
-figures/*.png
 dropbox/*
