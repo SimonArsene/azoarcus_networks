@@ -14,9 +14,9 @@ Python 2.7.16 was used with the following main packages:
 
 It contains the following directories:
 
-/ utils: a collection of functions used for analysis and figure production
-/ analysis: contains main notebooks for figures producing (necessary datasets can be downloaded on [Figshare](
+- utils: a collection of functions used for analysis and figure production
+- analysis: contains main notebooks for figures producing (necessary datasets can be downloaded on [Figshare](
 (https://doi.org/10.6084/m9.figshare.c.5103962)
-/ processing: contains scripts for processing raw sequencing data with an example of a processing pipeline
+- processing: contains scripts for processing raw sequencing data with an example of a processing pipeline
 
 This project is licensed under the terms of the MIT license.
